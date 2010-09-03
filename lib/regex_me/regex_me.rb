@@ -10,10 +10,11 @@ module RegexMe
       private
         def options_handler options
            {
-            :exact_word       =>  options[:exact_word],
-            :case_insensitive => (options[:case_insensitive] ? :i : nil ),
-            :m                => (options[:m] ? :m : nil ),
-            :exact_phrase     =>  options[:exact_phrase]
+            :exact_word            => options[:exact_word],
+            :case_insensitive      => (options[:case_insensitive] ? :i : nil ),
+            :latin_chars_variation => options[:latin_chars_variation],
+            :m                     => (options[:m] ? :m : nil ),
+            :exact_phrase          => options[:exact_phrase]
            }
         end
 
@@ -37,7 +38,7 @@ module RegexMe
 
       private
         def execute_builder string, opt_handled, border_to
-          result_builder = builder(string, opt_handled[:exact_word], border_to, opt_handled[:exact_phrase])
+          result_builder = builder(string, opt_handled[:exact_word], border_to, opt_handled[:latin_chars_variation], opt_handled[:exact_phrase])
 
           case border_to
             when :ruby
@@ -48,23 +49,25 @@ module RegexMe
 
         end
 
-        def builder string, exact_word, border_to, exact_phrase
+        def builder string, exact_word, border_to, latin_chars_variation, exact_phrase
 
           if exact_phrase
-            regexp = string.gsub(/\s+/, " ").gsub(/\s/, '[^0-9a-zA-Z\_]+').regex_builder(:delete_or => true, :border => {:to => border_to, :direction => :both})
+            regexp = string.gsub(/\s+/, " ").regex_latin_ci_list.gsub(/\s/, '[^0-9a-zA-Z\_]+').regex_builder(:delete_or => true,
+                                                                                         :border => {:to => border_to,
+                                                                                         :direction => :both})
           else
             regexp = '('
 
             for word in string.strip.split
               case word
                 when/^\*/
-                  regexp << word.regex_builder(:any => true, :border => {:to => border_to, :direction => :right})
+                  regexp << word.regex_builder(:any => true, :border => {:to => border_to, :direction => :right}, :latin_chars_variation => latin_chars_variation)
                 when /\*$/
-                  regexp << word.regex_builder(:any => true, :border => {:to => border_to, :direction => :left})
+                  regexp << word.regex_builder(:any => true, :border => {:to => border_to, :direction => :left}, :latin_chars_variation => latin_chars_variation)
                 when /^.*\*.*$/
-                  regexp << word.regex_builder(:any => true, :border => {:to => border_to, :direction => :both})
+                  regexp << word.regex_builder(:any => true, :border => {:to => border_to, :direction => :both}, :latin_chars_variation => latin_chars_variation)
                 else
-                  regexp << (exact_word ? word.regex_builder(:border => {:to => border_to, :direction => :both}) : word.regex_builder)
+                  regexp << (exact_word ? word.regex_builder(:border => {:to => border_to, :direction => :both}, :latin_chars_variation => latin_chars_variation) : word.regex_builder(:latin_chars_variation => latin_chars_variation))
               end
             end
 
