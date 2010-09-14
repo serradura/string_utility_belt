@@ -5,6 +5,14 @@ module General
     self.scan(/\w[\w\'\-]*/)
   end
 
+  def simple_space
+    self.strip.gsub(/\s+/, " ")
+  end
+
+  def simple_space!
+    self.strip.gsub!(/\s+/, " ")
+  end
+
   def have_this_words? words_to_match, exact_word=false
     helper_have_this_words? words_to_match, exact_word do |string, word, exact_world|
       return false if (string !~ word.regex_me_to_search_ruby(:exact_word => exact_word, :case_insensitive => true))
