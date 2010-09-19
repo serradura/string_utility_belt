@@ -2,8 +2,9 @@
 
 ## Links
 
-* Rubygems -> [[http://rubygems.org/gems/string_utility_belt]]
-* Github   -> [[http://github.com/serradura/string_utility_belt]]
+<a href='http://rubygems.org/gems/string_utility_belt'>http://rubygems.org/gems/string_utility_belt</a>
+
+<a href="http://github.com/serradura/string_utility_belt">http://github.com/serradura/string_utility_belt</a>
 
 ## Install
 
