@@ -9,6 +9,20 @@ module MatchRank
 
     return statistic
   end
+  
+  def words_frequency_by words_to_match
+    frequency_by(words_to_match, Hash.new(0), Hash.new(0)) do |freq, word_to_match, word|
+        freq[:exact][word_to_match]   += 1 if word =~ word_to_match.regex_me_to_search_ruby(:exact_word => true  , :case_insensitive => true)
+        freq[:matched][word_to_match] += 1 if word =~ word_to_match.regex_me_to_search_ruby(:exact_word => false , :case_insensitive => true)
+    end
+  end
+  
+  def total_frequency_by words_to_match
+    frequency_by(words_to_match, 0, 0) do |freq, word_to_match, word|
+      freq[:exact]   += 1 if word =~ word_to_match.regex_me_to_search_ruby(:exact_word => true  , :case_insensitive => true)
+      freq[:matched] += 1 if word =~ word_to_match.regex_me_to_search_ruby(:exact_word => false , :case_insensitive => true)
+    end
+  end
 
   private
     def frequency_by words_to_match, frequency_object_a, frequency_object_b
@@ -22,21 +36,6 @@ module MatchRank
       end
 
       return freq
-    end
-
-  public
-    def words_frequency_by words_to_match
-      frequency_by(words_to_match, Hash.new(0), Hash.new(0)) do |freq, word_to_match, word|
-          freq[:exact][word_to_match]   += 1 if word =~ word_to_match.regex_me_to_search_ruby(:exact_word => true  , :case_insensitive => true)
-          freq[:matched][word_to_match] += 1 if word =~ word_to_match.regex_me_to_search_ruby(:exact_word => false , :case_insensitive => true)
-      end
-    end
-
-    def total_frequency_by words_to_match
-      frequency_by(words_to_match, 0, 0) do |freq, word_to_match, word|
-        freq[:exact]   += 1 if word =~ word_to_match.regex_me_to_search_ruby(:exact_word => true  , :case_insensitive => true)
-        freq[:matched] += 1 if word =~ word_to_match.regex_me_to_search_ruby(:exact_word => false , :case_insensitive => true)
-      end
     end
 
 end

@@ -4,6 +4,18 @@ module RegexMe
   module To
     module Search
 
+      # PUBLIC METHODS Don't need to set public
+      # Just Write below:
+      
+      def regex_me_to_search_ruby options={}
+          regex_me_to_search(//, :ruby, options)
+      end
+
+      def regex_me_to_search_mysql options={}
+          regex_me_to_search("", :mysql, options)
+      end
+
+
       private
         def options_handler options
            {
@@ -21,16 +33,6 @@ module RegexMe
 
             return regex_empty if self.strip.empty?
             execute_builder(self, opt_handled, border_to)
-        end
-
-
-      public
-        def regex_me_to_search_ruby options={}
-            regex_me_to_search(//, :ruby, options)
-        end
-
-        def regex_me_to_search_mysql options={}
-            regex_me_to_search("", :mysql, options)
         end
 
       private
