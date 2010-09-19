@@ -1,8 +1,7 @@
 
-require "general/general"
-require "html_and_aml/html_and_aml"
-require "match_rank/match_rank"
-require "regex_me/regex_me"
+['entities', 'general', 'regex_me', 'tags', 'match_rank', 'html_and_aml'].each do |file|
+  require "string_utility_belt/#{file}"
+end
 
 module StringUtilityBelt
 

@@ -1,10 +1,7 @@
-
-require File.join(File.dirname(__FILE__), "helpers", "string", "regex_me")
+require 'string_utility_belt/regex_me_helper'
 
 module RegexMe
-
   module To
-
     module Search
 
       private
