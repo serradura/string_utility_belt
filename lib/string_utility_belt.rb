@@ -1,3 +1,4 @@
+require "string_utility_belt/version"
 
 require "general/general"
 require "html_and_aml/html_and_aml"
@@ -14,5 +15,5 @@ module StringUtilityBelt
 end
 
 class String
-	include StringUtilityBelt
+  include StringUtilityBelt
 end
