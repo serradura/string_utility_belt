@@ -14,4 +14,9 @@ class GeneralTest < Test::Unit::TestCase
     assert_equal ["Serradura's", "Labs"], "Serradura's Labs".words, "it should reurn a array with two words"
     assert_equal ["foo-foo", "bar's", "bar"], "foo-foo, bar's. bar!".words, "it should return 3 words"
   end
+
+  #describe #simple_space
+  def test_simple_space_method
+    assert_equal "foo bar", "    \n \r   \t\r\n foo \t bar    ".simple_space, "it should strip the string and replace any space by ' ' (the simple space)"
+  end
 end
