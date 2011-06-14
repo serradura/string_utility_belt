@@ -1,5 +1,6 @@
+require 'test_helper'
 
-require File.join(File.dirname(__FILE__), "..", "lib", "string_utility_belt")
+require "string_utility_belt"
 
 text = %q{Texto de teste!
 Esta classe deverá fazer a busca por uma ou um grupo de palavras
