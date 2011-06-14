@@ -1,14 +1,8 @@
-require 'rubygems'
+require 'rubygems' if RUBY_VERSION < '1.9'
 require 'bundler/gem_tasks'
+require 'rake/testtask'
 
-['lib', 'test'].each do |folder_name| 
-  path = File.join(File.dirname(__FILE__), folder_name)
-  $LOAD_PATH.unshift(path)
-end
-
-desc 'Running all the tests'
-namespace :test do
-  task :all do
-    require 'test'
-  end
+Rake::TestTask.new do |config|
+  config.libs << 'lib'
+  config.test_files = Dir['test/*_test.rb']
 end

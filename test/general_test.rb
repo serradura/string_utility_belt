@@ -1,4 +1,5 @@
-require 'test_helper'
+require 'rubygems' if RUBY_VERSION < '1.9'
+require 'test/unit'
 require 'general'
 
 #before all
