@@ -38,5 +38,4 @@ module General
       end
       return true
     end
-
 end

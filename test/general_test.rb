@@ -22,6 +22,8 @@ class GeneralTest < Test::Unit::TestCase
     assert_equal "foo bar", string.simple_space, "it should strip the string and replace any space by ' ' (the simple space)"
 
     assert_equal "    \n \r   \t\r\n foo \t bar    ", string,  "it should be the equal than before calling the method"
+
+    assert_equal "Hello".simple_space, "Hello",  "it should return the same string if nothing change"
   end
 
   #describe #simple_space!
@@ -32,7 +34,7 @@ class GeneralTest < Test::Unit::TestCase
 
     assert_not_equal "    \n \r   \t\r\n foo \t bar    ", string,  "it should not be the equal than before calling the method"
 
-    assert_nil "Hello".simple_space!,  "it should return nil if not exists changes to do"
+    assert_nil "Hello".simple_space!,  "it should return nil if nothing change"
   end
 
 end
