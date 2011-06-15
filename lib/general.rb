@@ -1,3 +1,4 @@
+require 'regex_me'
 
 module StringUtilityBelt
   module General
