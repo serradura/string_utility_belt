@@ -30,7 +30,7 @@ class GeneralTest < Test::Unit::TestCase
   def test_simple_space!
     string = "    \n \r   \t\r\n foo \t bar    "
 
-    assert_equal "foo bar", string.simple_space!, "it should strip the string and replace any space by ' ' (the simple space)"
+    assert_equal " foo bar ", string.simple_space!, "it should replace any space by ' ' (the simple space)"
 
     assert_not_equal "    \n \r   \t\r\n foo \t bar    ", string,  "it should not be the equal than before calling the method"
 

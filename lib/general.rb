@@ -10,13 +10,7 @@ module General
   end
 
   def simple_space!
-    begin
-      self.strip!.gsub!(/\s+/, " ")
-    rescue NoMethodError
-      # O erro foi gerado porque strip! nao encontrou espacos
-      # e netornou nil e nil nao tem o metodo gsub!
-      return nil
-    end
+    self.gsub!(/\s+/, " ")
   end
 
   def have_this_words? words_to_match, exact_word=false
