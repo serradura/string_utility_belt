@@ -1,12 +1,11 @@
-require "string_utility_belt/version"
+require 'string_utility_belt/version'
 
-require "general"
-require "html_and_aml/html_and_aml"
-require "match_rank/match_rank"
-require "regex_me/regex_me"
+require 'regex_me'
+require 'general'
+require 'html_and_aml/html_and_aml'
+require 'match_rank/match_rank'
 
 module StringUtilityBelt
-  include RegexMe::To::Search
   include MatchRank
   include HtmlAndAML
 end
