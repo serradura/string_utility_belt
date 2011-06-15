@@ -6,7 +6,7 @@ module General
   end
 
   def simple_space
-    self.strip.gsub(/\s+/, " ")
+    self.gsub(/\s+/, " ")
   end
 
   def simple_space!
