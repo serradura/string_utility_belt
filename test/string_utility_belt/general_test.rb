@@ -1,6 +1,4 @@
-require 'rubygems' if RUBY_VERSION < '1.9'
-require 'test/unit'
-require 'general'
+require File.join(File.dirname(__FILE__), '..', 'test_helper')
 
 class GeneralTest < Test::Unit::TestCase
   #describe #word

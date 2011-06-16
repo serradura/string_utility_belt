@@ -1,15 +1,7 @@
 require 'string_utility_belt/version'
 
-require 'regex_me'
-require 'general'
-require 'html_and_aml/html_and_aml'
-require 'match_rank/match_rank'
-
-module StringUtilityBelt
-  include MatchRank
-  include HtmlAndAML
-end
-
-class String
-  include StringUtilityBelt
-end
+require 'string_utility_belt/regex_me_to_search'
+require 'string_utility_belt/general'
+require 'string_utility_belt/match_rank'
+require 'string_utility_belt/tags'
+require 'string_utility_belt/entities'

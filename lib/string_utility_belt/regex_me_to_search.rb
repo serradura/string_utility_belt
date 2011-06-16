@@ -1,5 +1,4 @@
-
-require File.join(File.dirname(__FILE__), "regex_me", "string_helpers")
+require 'string_utility_belt/regex_me_helper'
 
 module StringUtilityBelt
   module RegexMe

@@ -1,4 +1,4 @@
-require 'regex_me'
+require 'string_utility_belt/regex_me_to_search'
 
 module StringUtilityBelt
   module General
@@ -33,6 +33,7 @@ module StringUtilityBelt
     end
 
     private
+
     def helper_have_this_words? words_to_match, exact_word
       for word in words_to_match
         yield self, word, exact_word
