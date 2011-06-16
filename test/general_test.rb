@@ -32,6 +32,7 @@ class GeneralTest < Test::Unit::TestCase
     assert_nil "Hello".simple_space!,  "it should return nil if nothing change"
   end
 
+  # describe #have_this_words?
   def test_have_this_words
     text = %q{Texto de teste!
 Esta classe deverá fazer a busca por uma ou um grupo de palavras
@@ -40,5 +41,14 @@ em um texto e retornar um rank com a quantidade identificada.}
     assert text.have_this_words?("busca ran".words), "it should be true if find all of the fragments"
 
     assert_not_equal true, text.have_this_words?("ran busca".words, true), "it should be false because not exists the 'ran' word "
+  end
+
+  # describe #not_have_this_words?
+  def test_not_have_this_words
+    text = %q{Texto de teste!
+Esta classe deverá fazer a busca por uma ou um grupo de palavras
+em um texto e retornar um rank com a quantidade identificada.}
+
+    assert_equal true, text.not_have_this_words?("ran busc".words, true), "it should be true because not exists the 'ran' and 'busc' words "
   end
 end
