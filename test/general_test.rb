@@ -38,5 +38,7 @@ Esta classe deverá fazer a busca por uma ou um grupo de palavras
 em um texto e retornar um rank com a quantidade identificada.}
 
     assert text.have_this_words?("busca ran".words), "it should be true if find all of the fragments"
+
+    assert_not_equal true, text.have_this_words?("ran busca".words, true), "it should be false because not exists the 'ran' word "
   end
 end
