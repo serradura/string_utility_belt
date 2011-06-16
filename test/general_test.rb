@@ -35,8 +35,8 @@ class GeneralTest < Test::Unit::TestCase
   # describe #have_this_words?
   def test_have_this_words
     text = %q{Texto de teste!
-Esta classe deverá fazer a busca por uma ou um grupo de palavras
-em um texto e retornar um rank com a quantidade identificada.}
+              Esta classe deverá fazer a busca por uma ou um grupo de palavras
+              em um texto e retornar um rank com a quantidade identificada.}
 
     assert text.have_this_words?("busca ran".words), "it should be true if find all of the fragments"
 
@@ -46,8 +46,8 @@ em um texto e retornar um rank com a quantidade identificada.}
   # describe #not_have_this_words?
   def test_not_have_this_words
     text = %q{Texto de teste!
-Esta classe deverá fazer a busca por uma ou um grupo de palavras
-em um texto e retornar um rank com a quantidade identificada.}
+              Esta classe deverá fazer a busca por uma ou um grupo de palavras
+              em um texto e retornar um rank com a quantidade identificada.}
 
     assert_equal true, text.not_have_this_words?("ran busc".words, true), "it should be true because not exists the 'ran' and 'busc' words "
   end
