@@ -7,10 +7,10 @@ end
 
 module StringUtilityBelt
   module Entities
+    CODER = HTMLEntities.new
 
     def decode_entities
-      coder = HTMLEntities.new
-      coder.decode(self)
+      CODER.decode(self)
     end
 
     def decode_entities_and_cleaner
