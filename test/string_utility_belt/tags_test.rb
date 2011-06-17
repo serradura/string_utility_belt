@@ -18,4 +18,8 @@ class TagsTest < Test::Unit::TestCase
     assert_equal "", "<a></b></serradura><></>".tag_cleaner
   end
 
+  def test_should_only_clean_up_complete_tag_patterns
+    assert_equal "<\o/>", "<a><</b>\</serradura>o<>/></>".tag_cleaner
+  end
+
 end
