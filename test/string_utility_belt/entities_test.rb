@@ -10,4 +10,8 @@ class EntitiesTest < Test::Unit::TestCase
     assert_equal "", "&lt;TAG&gt;".decode_entities_and_cleaner
   end
 
+  def test_should_should_encode_anything_that_can_be_transformed_into_an_entity
+    assert_equal "&lt;TAG&gt;", "<TAG>".generate_entities
+  end
+
 end
