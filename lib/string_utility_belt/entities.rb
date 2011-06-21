@@ -1,9 +1,4 @@
-begin
-  require 'htmlentities'
-rescue LoadError
-  require 'rubygems' # There are people that don't use rubygems! Require rubygems is the last alternative.
-  require 'htmlentities'
-end
+require 'htmlentities'
 
 module StringUtilityBelt
   module Entities
