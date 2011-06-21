@@ -10,8 +10,6 @@ rescue
   require 'rdoc/task'
 end
 
-$LOAD_PATH.unshift(File.dirname(__FILE__) + '/test')
-
 Rake::RDocTask.new do |rdoc|
   files =['README', 'LICENSE', 'lib/**/*.rb']
   rdoc.rdoc_files.add(files)
