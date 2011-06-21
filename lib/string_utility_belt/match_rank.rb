@@ -3,13 +3,11 @@ require 'string_utility_belt/regex_me_to_search'
 module StringUtilityBelt
   module MatchRank
 
-    def match_and_score_by words_to_match
-      freq = self.total_frequency_by words_to_match
-      statistic = {:exact => freq[:exact].to_f, :matched => freq[:matched].to_f, :precision => 0.0}
-
-      statistic[:precision] = (statistic[:exact] / statistic[:matched]) * 100
-
-      return statistic
+    def total_frequency_by words_to_match
+      frequency_by(words_to_match, 0, 0) do |freq, word_to_match, word|
+        freq[:exact]   += 1 if word =~ word_to_match.regex_me_to_search_ruby(:exact_word => true  , :case_insensitive => true)
+        freq[:matched] += 1 if word =~ word_to_match.regex_me_to_search_ruby(:exact_word => false , :case_insensitive => true)
+      end
     end
 
     def words_frequency_by words_to_match
@@ -19,11 +17,13 @@ module StringUtilityBelt
       end
     end
 
-    def total_frequency_by words_to_match
-      frequency_by(words_to_match, 0, 0) do |freq, word_to_match, word|
-        freq[:exact]   += 1 if word =~ word_to_match.regex_me_to_search_ruby(:exact_word => true  , :case_insensitive => true)
-        freq[:matched] += 1 if word =~ word_to_match.regex_me_to_search_ruby(:exact_word => false , :case_insensitive => true)
-      end
+    def match_and_score_by words_to_match
+      freq = self.total_frequency_by words_to_match
+      statistic = {:exact => freq[:exact].to_f, :matched => freq[:matched].to_f, :precision => 0.0}
+
+      statistic[:precision] = (statistic[:exact] / statistic[:matched]) * 100
+
+      return statistic
     end
 
     private
