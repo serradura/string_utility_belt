@@ -3,3 +3,4 @@
 pkg/**/*
 nbproject/**/*
 *.swp
+coverage*
