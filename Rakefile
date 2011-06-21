@@ -10,6 +10,12 @@ rescue
   require 'rdoc/task'
 end
 
+begin 
+  require 'rcov/rcovtask'
+rescue
+  require 'rcov/task'
+end
+
 Rake::RDocTask.new do |rdoc|
   files =['README', 'LICENSE', 'lib/**/*.rb']
   rdoc.rdoc_files.add(files)
@@ -19,6 +25,35 @@ Rake::RDocTask.new do |rdoc|
   rdoc.options << '--line-numbers'
 end
 
-Rake::TestTask.new do |t|
-  t.test_files = FileList['test/**/*.rb']
+namespace :test do
+  Rake::TestTask.new do |t|
+    t.test_files = FileList['test/**/*.rb']
+    t.name = 'all'
+  end
+end
+
+def run_coverage(files)
+  rm_f "coverage"
+  rm_f "coverage.data"
+
+  # turn the files we want to run into a  string
+  if files.length == 0
+    puts "No files were specified for testing"
+    return
+  end
+
+  files = files.join(" ")
+
+  exclude = '--exclude "usr/*"'
+
+  rcov = "rcov -Ilib:test --sort coverage --text-report #{exclude} --aggregate coverage.data"
+  cmd = "#{rcov} #{files}"
+  sh cmd
+end
+
+namespace :test do
+  desc 'Measures test coverage'
+  task :rcov do
+    run_coverage Dir["test/string_utility_belt/**/*.rb"]
+  end
 end

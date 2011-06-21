@@ -7,10 +7,12 @@ GEM
   remote: http://rubygems.org/
   specs:
     htmlentities (4.3.0)
+    rcov (0.9.9)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   htmlentities (= 4.3.0)
+  rcov
   string_utility_belt!
