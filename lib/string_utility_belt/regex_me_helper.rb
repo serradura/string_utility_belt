@@ -2,7 +2,7 @@
 
 module RegexMe
   module Helper
-    LATIN_CHARS_VARIATION = ["[aàáâãä]", "[eèéêë]", "[iìíîï]", "[oòóôõö]", "[uùúûü]", "[cçÇ]", "[ñÑ]"]
+    LATIN_CHARS_VARIATION = ["[aàáâãä]", "[eèéêë]", "[iìíîï]", "[oòóôõö]", "[uùúûü]", "[cç]", "[nñ]"]
 
     def regex_latin_ci_list
       memo = ""
