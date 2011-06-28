@@ -2,25 +2,39 @@
 
 module RegexMe
   module Helper
-    LATIN_CHARS_VARIATION = ["[aàáâãä]", "[eèéêë]", "[iìíîï]", "[oòóôõö]", "[uùúûü]", "[cç]", "[nñ]"]
+    A_VARIATIONS = "[aàáâãä]"
+    E_VARIATIONS = "[eèéêë]"
+    I_VARIATIONS = "[iìíîï]"
+    O_VARIATIONS = "[oòóôõö]"
+    U_VARIATIONS = "[uùúûü]"
+    C_VARIATIONS = "[cç]"
+    N_VARIATIONS = "[nñ]"
+
+    LATIN_CHARS_VARIATIONS = [A_VARIATIONS,
+                             E_VARIATIONS,
+                             I_VARIATIONS,
+                             O_VARIATIONS,
+                             U_VARIATIONS,
+                             C_VARIATIONS,
+                             N_VARIATIONS]
 
     def regex_latin_ci_list
       memo = ""
+
       self.each_char do |char|
+        changed = false
 
-        variation_found = false
+        for variations in LATIN_CHARS_VARIATIONS
+          variations_pattern = Regexp.new(variations, Regexp::IGNORECASE)
 
-        for char_variation in LATIN_CHARS_VARIATION
-          match = eval("/#{char_variation}/")
-
-          if (char =~ match)
-            memo.insert(-1, char_variation)
-            variation_found = true
+          if char =~ variations_pattern
+            changed = true
+            memo.insert(-1, variations)
             break
           end
         end
 
-        memo.insert(-1, char) unless variation_found
+        memo.insert(-1, char) unless changed
       end
 
       self.replace(memo)
