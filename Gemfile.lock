@@ -6,8 +6,17 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
+    columnize (0.3.3)
     htmlentities (4.3.0)
+    linecache (0.46)
+      rbx-require-relative (> 0.0.4)
+    rbx-require-relative (0.0.5)
     rcov (0.9.9)
+    ruby-debug (0.10.4)
+      columnize (>= 0.1)
+      ruby-debug-base (~> 0.10.4.0)
+    ruby-debug-base (0.10.4)
+      linecache (>= 0.3)
 
 PLATFORMS
   ruby
@@ -15,4 +24,5 @@ PLATFORMS
 DEPENDENCIES
   htmlentities (= 4.3.0)
   rcov
+  ruby-debug
   string_utility_belt!

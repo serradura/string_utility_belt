@@ -8,4 +8,5 @@ gem "htmlentities", "4.3.0"
 
 group "test", "developement" do
   gem "rcov"
+  gem "ruby-debug"
 end
