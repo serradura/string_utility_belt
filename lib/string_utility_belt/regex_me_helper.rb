@@ -18,6 +18,11 @@ module RegexMe
                               C_VARIATIONS,
                               N_VARIATIONS]
 
+   BORDER_TO = {
+                 :ruby => {:left => '\b', :right => '\b' },
+                 :mysql => {:left => '[[:<:]]', :right => '[[:>:]]' }
+               }
+
     def regex_latin_ci_list
       memo = ""
 
@@ -43,7 +48,7 @@ module RegexMe
     def regex_builder(options)
       self.gsub!(/\*/,'.*') if options[:any]
 
-      regex_latin_ci_list if options[:latin_chars_variations]
+      self.regex_latin_ci_list if options[:latin_chars_variations]
 
       border_me(options[:border][:to],
                 options[:border][:direction]) if options[:border]
@@ -59,8 +64,8 @@ module RegexMe
       self.insert(-1, "|")
     end
 
-    def border_me border_to, direction
-      border = define_border_metachar(border_to)
+    def border_me to, direction
+      border = BORDER_TO[to]
 
       case direction
       when :left
@@ -71,15 +76,6 @@ module RegexMe
         self.insert(0, border[:left]).insert(-1, border[:right])
       else
         self
-      end
-    end
-
-    def define_border_metachar border_to
-      case border_to
-      when :ruby
-        {:left => '\b'     , :right => '\b'}
-      when :mysql
-        {:left => '[[:<:]]', :right => '[[:>:]]'}
       end
     end
   end
