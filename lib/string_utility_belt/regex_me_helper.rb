@@ -69,7 +69,7 @@ module RegexMe
         self.insert(-1, border[:right])
       when :both
         self.insert(0, border[:left]).insert(-1, border[:right])
-      when nil
+      else
         self
       end
     end

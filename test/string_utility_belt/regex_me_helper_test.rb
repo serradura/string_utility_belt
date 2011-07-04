@@ -62,7 +62,7 @@ class RegexMeHelperTest < Test::Unit::TestCase
     border = {:to => :ruby, :direction => :right}
 
     assert_equal expected, "string".regex_builder(:border => border)
- end
+  end
 
   def test_should_return_the_border_metachar_in_left_and_right_when_its_required_for_ruby
     left = '\b'
@@ -71,7 +71,14 @@ class RegexMeHelperTest < Test::Unit::TestCase
     border = {:to => :ruby, :direction => :both}
 
     assert_equal expected, "string".regex_builder(:border => border)
- end
+  end
+
+  def test_when_ruby_should_return_same_text_if_the_border_to_direction_is_invalid
+    text = "string"
+    border = {:to => :ruby}
+
+    assert_same text, text.regex_builder(:border => border)
+  end
 
   def test_should_return_the_border_metachar_in_left_when_its_required_for_mysql
     left = '[[:<:]]'
@@ -87,7 +94,7 @@ class RegexMeHelperTest < Test::Unit::TestCase
     border = {:to => :mysql, :direction => :right}
 
     assert_equal expected, "string".regex_builder(:border => border)
- end
+  end
 
   def test_should_return_the_border_metachar_in_left_and_right_when_its_required_for_mysql
     left = '[[:<:]]'
@@ -96,5 +103,12 @@ class RegexMeHelperTest < Test::Unit::TestCase
     border = {:to => :mysql, :direction => :both}
 
     assert_equal expected, "string".regex_builder(:border => border)
- end
+  end
+
+  def test_when_mysql_should_return_same_text_if_the_border_to_direction_is_invalid
+    text = "string"
+    border = {:to => :mysql, :direction => nil}
+
+    assert_same text, text.regex_builder(:border => border)
+  end
 end
