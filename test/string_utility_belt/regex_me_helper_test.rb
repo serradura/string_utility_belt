@@ -48,4 +48,29 @@ class RegexMeHelperTest < Test::Unit::TestCase
     assert_equal "without OR", "without OR".regex_builder(:or => false)
   end
 
+  def test_should_return_the_border_metachar_in_left_when_its_required_for_ruby
+    left = '\b'
+    expected = left + "string"
+    border = {:to => :ruby, :direction => :left}
+
+    assert_equal expected, "string".regex_builder(:border => border)
+  end
+
+  def test_should_return_the_border_metachar_right_when_its_required_for_ruby
+    right = '\b'
+    expected = "string" + right
+    border = {:to => :ruby, :direction => :right}
+
+    assert_equal expected, "string".regex_builder(:border => border)
+ end
+
+  def test_should_return_the_border_metachar_in_left_and_right_when_its_required_for_ruby
+    left = '\b'
+    right = '\b'
+    expected = left + "string" + right
+    border = {:to => :ruby, :direction => :both}
+
+    assert_equal expected, "string".regex_builder(:border => border)
+ end
+
 end
