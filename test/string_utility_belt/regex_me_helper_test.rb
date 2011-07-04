@@ -73,4 +73,28 @@ class RegexMeHelperTest < Test::Unit::TestCase
     assert_equal expected, "string".regex_builder(:border => border)
  end
 
+  def test_should_return_the_border_metachar_in_left_when_its_required_for_mysql
+    left = '[[:<:]]'
+    expected = left + "string"
+    border = {:to => :mysql, :direction => :left}
+
+    assert_equal expected, "string".regex_builder(:border => border)
+  end
+
+  def test_should_return_the_border_metachar_right_when_its_required_for_mysql
+    right = '[[:>:]]'
+    expected = "string" + right
+    border = {:to => :mysql, :direction => :right}
+
+    assert_equal expected, "string".regex_builder(:border => border)
+ end
+
+  def test_should_return_the_border_metachar_in_left_and_right_when_its_required_for_mysql
+    left = '[[:<:]]'
+    right = '[[:>:]]'
+    expected = left + "string" + right
+    border = {:to => :mysql, :direction => :both}
+
+    assert_equal expected, "string".regex_builder(:border => border)
+ end
 end
