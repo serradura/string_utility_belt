@@ -39,4 +39,13 @@ class RegexMeHelperTest < Test::Unit::TestCase
 
     assert expected.include?("regex is not for weaks".regex_latin_ci_list)
   end
+
+  def test_should_returns_the_OR_metachar_if_or_options_was_passed
+    assert_equal "OR == |", "OR == ".regex_builder(:or => true)
+  end
+
+  def test_should_not_return_OR_when_passed_OR_options_is_false
+    assert_equal "without OR", "without OR".regex_builder(:or => false)
+  end
+
 end

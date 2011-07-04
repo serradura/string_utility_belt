@@ -11,12 +11,12 @@ module RegexMe
     N_VARIATIONS = "[nñ]"
 
     LATIN_CHARS_VARIATIONS = [A_VARIATIONS,
-                             E_VARIATIONS,
-                             I_VARIATIONS,
-                             O_VARIATIONS,
-                             U_VARIATIONS,
-                             C_VARIATIONS,
-                             N_VARIATIONS]
+                              E_VARIATIONS,
+                              I_VARIATIONS,
+                              O_VARIATIONS,
+                              U_VARIATIONS,
+                              C_VARIATIONS,
+                              N_VARIATIONS]
 
     def regex_latin_ci_list
       memo = ""
@@ -40,22 +40,22 @@ module RegexMe
       self.replace(memo)
     end
 
-    def regex_builder options={}
+    def regex_builder(options)
       self.gsub!(/\*/,'.*') if options[:any]
 
-      regex_latin_ci_list if options[:latin_chars_variation]
+      regex_latin_ci_list if options[:latin_chars_variations]
 
       border_me(options[:border][:to],
                 options[:border][:direction]) if options[:border]
 
-      insert_OR_in_right unless options[:delete_or]
+      insert_OR if options[:or]
 
       return self
     end
 
     private
 
-    def insert_OR_in_right
+    def insert_OR
       self.insert(-1, "|")
     end
 
