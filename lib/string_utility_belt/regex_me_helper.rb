@@ -46,28 +46,38 @@ module RegexMe
     end
 
     def regex_builder(options)
-      self.gsub!(/\*/,'.*') if options[:any]
+      if options[:any]
+        replace_the_any_char_per_any_pattern
+      end
 
-      self.regex_latin_ci_list if options[:latin_chars_variations]
+      if options[:latin_chars_variations]
+        replace_chars_includeds_in_latin_variation_list
+      end
 
-      border_me(options[:border][:to],
-                options[:border][:direction]) if options[:border]
+      if options[:border]
+        insert_border(options[:border])
+      end
 
-      insert_OR if options[:or]
+      if options[:or]
+        insert_OR
+      end
 
       return self
     end
 
     private
-
-    def insert_OR
-      self.insert(-1, "|")
+    def replace_the_any_char_per_any_pattern
+      self.gsub!(/\*/, '.*')
     end
 
-    def border_me to, direction
-      border = BORDER_TO[to]
+    def replace_chars_includeds_in_latin_variation_list
+      self.regex_latin_ci_list
+    end
 
-      case direction
+    def insert_border(options)
+      border = BORDER_TO[options[:to]]
+
+      case options[:direction]
       when :left
         self.insert(0, border[:left])
       when :right
@@ -77,6 +87,10 @@ module RegexMe
       else
         self
       end
+    end
+
+    def insert_OR
+      self.insert(-1, "|")
     end
   end
 end
