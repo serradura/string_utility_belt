@@ -32,7 +32,7 @@ class RegexMeHelperTest < Test::Unit::TestCase
     assert_equal("[nñ]", "n".regex_latin_ci_list)
   end
 
-  def test_should_replace_all_chars_that_match_with_latin_chars_list
+  def test_should_replace_all_chars_that_found_in_latin_variantion_list
     expected = "r[eèéêë]g[eèéêë]xp [iìíîï]s p[oòóôõö]w[eèéêë]rf[uùúûü]ll"
 
     assert_equal expected, "regexp is powerfull".regex_latin_ci_list
@@ -42,7 +42,7 @@ class RegexMeHelperTest < Test::Unit::TestCase
     assert_equal "OR == |", "OR == ".regex_builder(:or => true)
   end
 
-  def test_should_not_return_OR_when_passed_OR_options_is_false
+  def test_should_not_return_OR_when_the_OR_options_is_false
     assert_equal "without OR", "without OR".regex_builder(:or => false)
   end
 
@@ -54,7 +54,7 @@ class RegexMeHelperTest < Test::Unit::TestCase
     assert_equal expected, "string".regex_builder(:border => border)
   end
 
-  def test_should_return_the_border_metachar_right_when_its_required_for_ruby
+  def test_should_return_the_border_metachar_in_right_when_its_required_for_ruby
     right = '\b'
     expected = "string" + right
     border = {:to => :ruby, :direction => :right}
@@ -71,7 +71,7 @@ class RegexMeHelperTest < Test::Unit::TestCase
     assert_equal expected, "string".regex_builder(:border => border)
   end
 
-  def test_when_ruby_should_return_same_text_if_the_border_to_direction_is_invalid
+  def test_for_ruby_should_return_the_same_text_if_the_border_to_direction_is_invalid
     text = "string"
     border = {:to => :ruby}
 
@@ -86,7 +86,7 @@ class RegexMeHelperTest < Test::Unit::TestCase
     assert_equal expected, "string".regex_builder(:border => border)
   end
 
-  def test_should_return_the_border_metachar_right_when_its_required_for_mysql
+  def test_should_return_the_border_metachar_in_right_when_its_required_for_mysql
     right = '[[:>:]]'
     expected = "string" + right
     border = {:to => :mysql, :direction => :right}
@@ -103,14 +103,14 @@ class RegexMeHelperTest < Test::Unit::TestCase
     assert_equal expected, "string".regex_builder(:border => border)
   end
 
-  def test_when_mysql_should_return_same_text_if_the_border_to_direction_is_invalid
+  def test_for_mysql_should_return_the_same_text_if_the_border_to_direction_is_invalid
     text = "string"
     border = {:to => :mysql, :direction => nil}
 
     assert_same text, text.regex_builder(:border => border)
   end
 
-  def test_should_return_an_mix_of_buildered_pattern_options
+  def test_should_return_a_mix_of_regexp_options
     expected = "f.*[oòóôõö]"
     assert_equal expected, "f*o".regex_builder(:any => true, :latin_chars_variations => true)
   end

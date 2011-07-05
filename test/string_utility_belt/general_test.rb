@@ -18,7 +18,7 @@ class GeneralTest < Test::Unit::TestCase
     assert_equal ["foo-foo", "bar's", "bar"], "foo-foo, bar's. bar!".words
   end
 
-  def test_should_replace_an_sequence_of_space_per_a_unique_space
+  def test_should_replace_a_sequence_of_space_per_a_unique_space
     assert_equal " foo bar ", @spaces_and_some_text.simple_space
   end
 
