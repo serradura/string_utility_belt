@@ -33,11 +33,9 @@ class RegexMeHelperTest < Test::Unit::TestCase
   end
 
   def test_should_replace_all_chars_that_match_with_latin_chars_list
-    # expected = "r[eèéêë]g[eèéêë]x [iìíî]s [nñ][oòóôõö]t f[oòóôõö]r w[eèéêë][aàáâãä]ks"
+    expected = "r[eèéêë]g[eèéêë]xp [iìíîï]s p[oòóôõö]w[eèéêë]rf[uùúûü]ll"
 
-    expected ="r[e\303\250\303\251\303\252\303\253]g[e\303\250\303\251\303\252\303\253]x [i\303\254\303\255\303\256\303\257]s [n\303\261][o\303\262\303\263\303\264\303\265\303\266]t f[o\303\262\303\263\303\264\303\265\303\266]r w[e\303\250\303\251\303\252\303\253][a\303\240\303\241\303\242\303\243\303\244]ks"
-
-    assert expected.include?("regex is not for weaks".regex_latin_ci_list)
+    assert_equal expected, "regexp is powerfull".regex_latin_ci_list
   end
 
   def test_should_returns_the_OR_metachar_if_or_options_was_passed
@@ -113,7 +111,7 @@ class RegexMeHelperTest < Test::Unit::TestCase
   end
 
   def test_should_return_an_mix_of_buildered_pattern_options
-    expected = "f.*[o\303\262\303\263\303\264\303\265\303\266]"
+    expected = "f.*[oòóôõö]"
     assert_equal expected, "f*o".regex_builder(:any => true, :latin_chars_variations => true)
   end
 end
