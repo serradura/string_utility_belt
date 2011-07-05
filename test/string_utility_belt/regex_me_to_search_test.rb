@@ -10,9 +10,15 @@ class RegexMeToSearchTest < Test::Unit::TestCase
     assert_equal("(foo|bar)", "foo bar".regex_me_to_search_mysql)
   end
 
-  def test_when_ruby_should_match_the_phrase
+  def test_should_match_the_phrase_for_ruby
     text  = "ruby frameworks is so cool"
     regexp = "ruby frameworks".regex_me_to_search_ruby(:exact_phrase => true)
+    assert_match(regexp, text)
+  end
+
+  def test_should_match_independent_of_the_non_word_chars_between_the_words_phrase_for_ruby
+    text  = "ruby - on - rails"
+    regexp = "ruby on rails".regex_me_to_search_ruby(:exact_phrase => true)
     assert_match(regexp, text)
   end
 
