@@ -111,4 +111,9 @@ class RegexMeHelperTest < Test::Unit::TestCase
 
     assert_same text, text.regex_builder(:border => border)
   end
+
+  def test_should_return_an_mix_of_buildered_pattern_options
+    expected = "f.*[o\303\262\303\263\303\264\303\265\303\266]"
+    assert_equal expected, "f*o".regex_builder(:any => true, :latin_chars_variations => true)
+  end
 end
