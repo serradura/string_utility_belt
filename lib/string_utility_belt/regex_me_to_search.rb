@@ -19,8 +19,8 @@ module StringUtilityBelt
 
         def options_handler(options)
           handled = \
-          {:case_insensitive  => (options[:case_insensitive] ? :i : nil ),
-           :m  => (options[:m] ? :m : nil ),
+          {:case_insensitive  => (options[:case_insensitive] ? Regexp::IGNORECASE : nil ),
+           :m  => (options[:m] ? Regexp::MULTILINE : nil ),
            :or => (options[:or] == false ? false : true)}
 
           return options.merge(handled)
@@ -40,7 +40,7 @@ module StringUtilityBelt
 
           case env
           when :ruby
-            eval "/#{builder_result}/#{opt_handled[:case_insensitive]}#{opt_handled[:m]}"
+            Regexp.new(builder_result, opt_handled[:case_insensitive], opt_handled[:m])
           when :mysql
             builder_result.gsub(/\\b/,"[[:<:]]").gsub(/\\b$/, "[[:>:]])")
           end
@@ -53,11 +53,11 @@ module StringUtilityBelt
             @regexp = \
               string \
                .strip.simple_space \
+               .regex_latin_ci_list \
                .gsub(/\s/, WORDS_INTERVAL_PATTERN_FOR_EXACT_PHRASES) \
                .regex_builder(:or => false,
                               :border => {:to => border_to,
-                                          :direction  => :both},
-                              :latin_chars_variations => true)
+                                          :direction  => :both})
           else
             @regexp = '('
 
