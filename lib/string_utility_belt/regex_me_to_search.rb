@@ -20,7 +20,7 @@ module StringUtilityBelt
         def options_handler(options)
           handled = \
           {:case_insensitive  => (options[:case_insensitive] ? Regexp::IGNORECASE : nil ),
-           :m  => (options[:m] ? Regexp::MULTILINE : nil ),
+           :multiline  => (options[:multiline] ? Regexp::MULTILINE : nil ),
            :or => (options[:or] == false ? false : true)}
 
           return options.merge(handled)
@@ -34,19 +34,21 @@ module StringUtilityBelt
 
         def execute_builder(env, options)
           opt_handled = options_handler(options)
-          string      = self
 
-          builder_result = builder(string, env, opt_handled)
+          builder_result = builder(env, opt_handled)
 
           case env
           when :ruby
-            Regexp.new(builder_result, opt_handled[:case_insensitive], opt_handled[:m])
+            options = [opt_handled[:case_insensitive], opt_handled[:multiline]].compact
+            Regexp.new(builder_result, *options)
           when :mysql
-            builder_result.gsub(/\\b/,"[[:<:]]").gsub(/\\b$/, "[[:>:]])")
+            builder_result
           end
         end
 
-        def builder(string, border_to, options)
+        def builder(border_to, options)
+          string = self
+
           lcv = options[:latin_chars_variations]
 
           if options[:exact_phrase]
@@ -64,7 +66,7 @@ module StringUtilityBelt
             for word in string.strip.split
               if options[:exact_word]
                 @regexp << word.regex_builder(:border => {:to => border_to, :direction => :both}, :latin_chars_variations => lcv, :or => true)
-              elsif have_any_metachar?(word)
+              elsif have_the_any_char?(word)
                 @regexp << word.regex_builder(:any => true, :border => border(border_to, word) , :latin_chars_variations => lcv, :or => true)
               else
                 @regexp << word.regex_builder(:latin_chars_variations => lcv, :or => true)
@@ -77,7 +79,7 @@ module StringUtilityBelt
           return @regexp
         end
 
-       def have_any_metachar?(string)
+       def have_the_any_char?(string)
          string.include?('*')
        end
 

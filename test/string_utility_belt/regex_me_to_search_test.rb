@@ -59,8 +59,35 @@ class RegexMeToSearchTest < Test::Unit::TestCase
   end
 
   def test_should_return_the_matched_sentencest
+    sentences = ['I like banana!', 'Do you like bonono?', 'foo bar', 'Regexp is cool']
+    regexp = "b*n*n* *l".regex_me_to_search_ruby
+
+    expected_sentences = ['I like banana!', 'Do you like bonono?', 'Regexp is cool']
+    matched_sentences = sentences.select { |sentence| sentence =~ regexp }
+    assert_equal(expected_sentences, matched_sentences)
+  end
+
+  def test_should_not_match_when_case_is_sensitive
     text  = "sinatra"
-    regexp = "*a".regex_me_to_search_ruby
+    regexp = "SINATRA".regex_me_to_search_ruby(:case_insensitive => false)
+    assert_no_match(regexp, text)
+  end
+
+  def test_should_match_when_case_is_insensitive
+    text  = "sinatra"
+    regexp = "SINATRA".regex_me_to_search_ruby(:case_insensitive => true)
+    assert_match(regexp, text)
+  end
+
+  def test_should_not_match_when_the_text_have_multilines
+    text  = "d\na"
+    regexp = "d*a".regex_me_to_search_ruby(:multiline => false)
+    assert_no_match(regexp, text)
+  end
+
+  def test_should_match_when_the_text_have_multilines
+    text  = "d\na"
+    regexp = "d*a".regex_me_to_search_ruby(:multiline => true)
     assert_match(regexp, text)
   end
 
