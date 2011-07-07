@@ -91,4 +91,16 @@ class RegexMeToSearchTest < Test::Unit::TestCase
     assert_match(regexp, text)
   end
 
+  def test_should_return_a_regex_to_mysql_with_borders
+    expected  = "([[:<:]]foo[[:>:]])"
+    regexp = "foo".regex_me_to_search_mysql(:exact_word => true)
+    assert_equal(expected, regexp)
+  end
+
+  def test_should_return_a_exact_phrase_regex_to_mysql
+    expected  = '[[:<:]]f[oòóôõö][oòóôõö][^0-9a-zA-Z\_]+b[aàáâãä]r[[:>:]]'
+    regexp = "foo bar".regex_me_to_search_mysql(:exact_phrase => true)
+    assert_equal(expected, regexp)
+  end
+
 end
