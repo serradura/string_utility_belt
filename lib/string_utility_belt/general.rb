@@ -10,31 +10,35 @@ module StringUtilityBelt
         @arguments = options
 
         for word in words_to_match
-          return false if string_does_not_match_with_this_word_pattern?(word)
+          return false if not found_word_in_string?(word)
         end
 
         return true
       end
 
       private
-      def string_does_not_match_with_this_word_pattern?(word)
-        @string !~ word.regex_me_to_search_ruby(arguments)
+      def found_word_in_string?(word)
+        @string =~ word.regex_me_to_search_ruby(arguments)
       end
 
       def arguments
-        if is_boolean?
+        if args_is_nil? or args_is_boolean?
           CASE_INSENSITIVE_OPT.merge({:exact_word => @arguments})
-        elsif is_hash?
+        elsif args_is_hash?
           @arguments.merge(CASE_INSENSITIVE_OPT)
         end
       end
 
-      def is_boolean?
+      def args_is_boolean?
         @arguments.instance_of?(FalseClass) || @arguments.instance_of?(TrueClass)
       end
 
-      def is_hash?
+      def args_is_hash?
         @arguments.instance_of?(Hash)
+      end
+
+      def args_is_nil?
+        @arguments.nil?
       end
     end
 
@@ -55,12 +59,12 @@ module StringUtilityBelt
       self.gsub!(ANY_SPACE_PATTERN, SIMPLE_SPACE)
     end
 
-    def have_this_words?(words_to_match, options = false)
+    def have_this_words?(words_to_match, options = nil)
       i = GENERAL.new
       i.have_this_words?(self, words_to_match, options)
     end
 
-    def not_have_this_words?(words_to_match, options = false)
+    def not_have_this_words?(words_to_match, options = nil)
       i = GENERAL.new
       !i.have_this_words?(self, words_to_match, options)
     end
