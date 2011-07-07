@@ -5,35 +5,35 @@ require File.join(File.dirname(__FILE__), '..', 'test_helper')
 class RegexMeHelperTest < Test::Unit::TestCase
 
   def test_should_create_a_string_with_the_latin_char_variations_for_the_letter_A
-    assert_equal("[aàáâãä]", "a".regex_latin_ci_list)
+    assert_equal("(a|à|á|â|ã|ä)", "a".regex_latin_ci_list)
   end
 
   def test_should_create_a_string_with_the_latin_char_variations_for_the_letter_E
-    assert_equal("[eèéêë]", "e".regex_latin_ci_list)
+    assert_equal("(e|è|é|ê|ë)", "e".regex_latin_ci_list)
   end
 
   def test_should_create_a_string_with_the_latin_char_variations_for_the_letter_I
-    assert_equal("[iìíîï]", "i".regex_latin_ci_list)
+    assert_equal("(i|ì|í|î|ï)", "i".regex_latin_ci_list)
   end
 
   def test_should_create_a_string_with_the_latin_char_variations_for_the_letter_O
-    assert_equal("[oòóôõö]", "o".regex_latin_ci_list)
+    assert_equal("(o|ò|ó|ô|õ|ö)", "o".regex_latin_ci_list)
   end
 
   def test_should_create_a_string_with_the_latin_char_variations_for_the_letter_U
-    assert_equal("[uùúûü]", "u".regex_latin_ci_list)
+    assert_equal("(u|ù|ú|û|ü)", "u".regex_latin_ci_list)
   end
 
   def test_should_create_a_string_with_the_latin_char_variations_for_the_letter_C
-    assert_equal("[cç]", "c".regex_latin_ci_list)
+    assert_equal("(c|ç)", "c".regex_latin_ci_list)
   end
 
   def test_should_create_a_string_with_the_latin_char_variations_for_the_letter_N
-    assert_equal("[nñ]", "n".regex_latin_ci_list)
+    assert_equal("(n|ñ)", "n".regex_latin_ci_list)
   end
 
   def test_should_replace_all_chars_that_found_in_latin_variantion_list
-    expected = "r[eèéêë]g[eèéêë]xp [iìíîï]s p[oòóôõö]w[eèéêë]rf[uùúûü]ll"
+    expected = "r(e|è|é|ê|ë)g(e|è|é|ê|ë)xp (i|ì|í|î|ï)s p(o|ò|ó|ô|õ|ö)w(e|è|é|ê|ë)rf(u|ù|ú|û|ü)ll"
 
     assert_equal expected, "regexp is powerfull".regex_latin_ci_list
   end
@@ -111,7 +111,7 @@ class RegexMeHelperTest < Test::Unit::TestCase
   end
 
   def test_should_return_a_mix_of_regexp_options
-    expected = "f.*[oòóôõö]"
+    expected = "f.*(o|ò|ó|ô|õ|ö)"
     assert_equal expected, "f*o".regex_builder(:any => true, :latin_chars_variations => true)
   end
 end

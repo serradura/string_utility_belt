@@ -2,13 +2,13 @@
 
 module RegexMe
   module Helper
-    A_VARIATIONS = "[aàáâãä]"
-    E_VARIATIONS = "[eèéêë]"
-    I_VARIATIONS = "[iìíîï]"
-    O_VARIATIONS = "[oòóôõö]"
-    U_VARIATIONS = "[uùúûü]"
-    C_VARIATIONS = "[cç]"
-    N_VARIATIONS = "[nñ]"
+    A_VARIATIONS = "(a|à|á|â|ã|ä)"
+    E_VARIATIONS = "(e|è|é|ê|ë)"
+    I_VARIATIONS = "(i|ì|í|î|ï)"
+    O_VARIATIONS = "(o|ò|ó|ô|õ|ö)"
+    U_VARIATIONS = "(u|ù|ú|û|ü)"
+    C_VARIATIONS = "(c|ç)"
+    N_VARIATIONS = "(n|ñ)"
 
     LATIN_CHARS_VARIATIONS = [A_VARIATIONS,
                               E_VARIATIONS,
