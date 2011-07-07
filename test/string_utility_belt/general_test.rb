@@ -65,4 +65,9 @@ class GeneralTest < Test::Unit::TestCase
   def test_should_be_true_if_not_find_all_of_the_searched_words
     assert_equal true, @text.not_have_this_words?("ran busc".words, true)
   end
+
+  def test_should_match_even_if_there_are_characters_variations
+    text = "São páúlõ is a very nice city!"
+    assert text.have_this_words?("sao paulo".words, :latin_chars_variations => true)
+  end
 end
