@@ -5,19 +5,22 @@ module StringUtilityBelt
     class GENERAL
       CASE_INSENSITIVE_OPT = {:case_insensitive => true}
 
-      def have_this_words?(string, words_to_match, options)
-        @string    = string
+      def initialize(string)
+        @string = string
+      end
+
+      def have_this_words?(words_to_match, options)
         @arguments = options
 
         for word in words_to_match
-          return false if not found_word_in_string?(word)
+          return false if not word_is_found_in_the_string?(word)
         end
 
         return true
       end
 
       private
-      def found_word_in_string?(word)
+      def word_is_found_in_the_string?(word)
         @string =~ word.regex_me_to_search_ruby(arguments)
       end
 
@@ -60,13 +63,13 @@ module StringUtilityBelt
     end
 
     def have_this_words?(words_to_match, options = nil)
-      i = GENERAL.new
-      i.have_this_words?(self, words_to_match, options)
+      i = GENERAL.new(self)
+      i.have_this_words?(words_to_match, options)
     end
 
     def not_have_this_words?(words_to_match, options = nil)
-      i = GENERAL.new
-      !i.have_this_words?(self, words_to_match, options)
+      i = GENERAL.new(self)
+      !i.have_this_words?(words_to_match, options)
     end
   end
 end
