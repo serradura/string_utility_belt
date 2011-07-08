@@ -2,45 +2,102 @@ require 'string_utility_belt/regex_me_to_search'
 
 module StringUtilityBelt
   module MatchRank
+    class MATCHRANK
+      TOTAL_TEMPLATE = {:exact => 0, :matched => 0}
+      SCORE_TEMPLATE = TOTAL_TEMPLATE.merge({:precision => 0})
 
-    def total_frequency_by words_to_match
-      frequency_by(words_to_match, 0, 0) do |freq, word_to_match, word|
-        freq[:exact]   += 1 if word =~ word_to_match.regex_me_to_search_ruby(:exact_word => true  , :case_insensitive => true)
-        freq[:matched] += 1 if word =~ word_to_match.regex_me_to_search_ruby(:exact_word => false , :case_insensitive => true)
+      def initialize(string)
+        @text = string
+      end
+
+      def frequency(options)
+        @options = options
+        @result  = result_template
+
+        for @search_word in search_words
+          for @text_word in @text.words
+            count_exact_matches
+            count_fragmet_matches
+          end
+        end
+
+        calculate_the_precision if @options[:template] == :precision
+
+        return @result
+      end
+
+      private
+
+      def search_words
+        words = @options[:search_words]
+        words.instance_of?(Array) ? words : words.to_s.words
+      end
+
+      def count_exact_matches
+        incr_result(:exact) if find_the_wanted_word(:with_precision => true)
+      end
+
+      def count_fragmet_matches
+        incr_result(:matched) if find_the_wanted_word(:with_precision => false)
+      end
+
+      def calculate_the_precision
+        @result[:precision] = (@result[:exact].to_f / @result[:matched].to_f) * 100
+      end
+
+      def find_the_wanted_word(option)
+        @text_word =~ matcher(option[:with_precision])
+      end
+
+      def matcher(precision)
+        @search_word.regex_me_to_search_ruby(:exact_word => precision,
+                                             :case_insensitive => true)
+      end
+
+      def incr_result(key)
+        case @options[:template]
+        when :grouped_words
+          begin
+            @result[key][@search_word] += 1
+          rescue
+            @result[key][@search_word] = 0
+            @result[key][@search_word] += 1
+          end
+        else
+          @result[key] += 1
+        end
+      end
+
+      def result_template
+        templates.fetch(@options[:template]).clone
+      end
+
+      def templates
+        {
+         :total => TOTAL_TEMPLATE,
+         :precision => SCORE_TEMPLATE,
+         :grouped_words => {:exact => {}, :matched => {}}
+        }
       end
     end
 
-    def words_frequency_by words_to_match
-      frequency_by(words_to_match, Hash.new(0), Hash.new(0)) do |freq, word_to_match, word|
-        freq[:exact][word_to_match]   += 1 if word =~ word_to_match.regex_me_to_search_ruby(:exact_word => true  , :case_insensitive => true)
-        freq[:matched][word_to_match] += 1 if word =~ word_to_match.regex_me_to_search_ruby(:exact_word => false , :case_insensitive => true)
-      end
+    def total_frequency_by(words)
+      measure.frequency(:template => :total, :search_words => words)
     end
 
-    def match_and_score_by words_to_match
-      freq = self.total_frequency_by words_to_match
-      statistic = {:exact => freq[:exact].to_f, :matched => freq[:matched].to_f, :precision => 0.0}
+    def words_frequency_by(words)
+      measure.frequency(:template => :grouped_words, :search_words => words)
+    end
 
-      statistic[:precision] = (statistic[:exact] / statistic[:matched]) * 100
-
-      return statistic
+    def match_and_score_by(words)
+      measure.frequency(:template => :precision, :search_words => words)
     end
 
     private
 
-    def frequency_by words_to_match, frequency_object_a, frequency_object_b
-      self_words = self.words
-      freq = {:exact => frequency_object_a, :matched => frequency_object_b}
-
-      for word_to_match in words_to_match
-        for word in self_words
-          yield freq, word_to_match, word
-        end
-      end
-
-      return freq
+    def measure
+      MATCHRANK.new(self)
     end
-
   end
 end
 
