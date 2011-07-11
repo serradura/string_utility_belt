@@ -1,4 +1,4 @@
-require 'string_utility_belt/regex_me_to_search'
+require 'string_utility_belt/regex_me'
 
 module StringUtilityBelt
   module MatchRank
