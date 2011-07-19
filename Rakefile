@@ -17,10 +17,10 @@ rescue
 end
 
 Rake::RDocTask.new do |rdoc|
-  files =['README', 'LICENSE', 'lib/**/*.rb']
+  files =['*.markdown', 'lib/**/*.rb']
   rdoc.rdoc_files.add(files)
-  rdoc.main = "README" # page to start on
-  rdoc.title = "serradura-string_utility_belt Docs"
+  rdoc.main = "README.markdown" # page to start on
+  rdoc.title = "serradura/string_utility_belt Docs"
   rdoc.rdoc_dir = 'doc/rdoc' # rdoc output folder
   rdoc.options << '--line-numbers'
 end
