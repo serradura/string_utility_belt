@@ -6,6 +6,9 @@
 
 <a href="http://github.com/serradura/string_utility_belt">http://github.com/serradura/string_utility_belt</a>
 
+## Motivação
+Em meus primeiros projetos em Ruby criei algumas bibliotecas para trabalhar com strings. Como estava começando com a linguagem comecei a explorar o ecossistema e então resolvi criar a minha primeira rubygem. Minha intenção foi a de aprender e compartilhar.
+
 ## Install
 
     gem install string_utility_belt

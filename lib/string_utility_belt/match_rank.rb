@@ -81,14 +81,19 @@ module StringUtilityBelt
       end
     end
 
+
+    warn "StringUtilityBelt::MatchRank.total_frequency_by will be deprecated in the next_version"
     def total_frequency_by(words)
       measure.frequency(:template => :total, :search_words => words)
     end
 
+
+    warn "StringUtilityBelt::MatchRank.words_frequency_by will be deprecated in the next_version"
     def words_frequency_by(words)
       measure.frequency(:template => :grouped_words, :search_words => words)
     end
 
+    warn "StringUtilityBelt::MatchRank.match_and_score_by will be deprecated in the next_version"
     def match_and_score_by(words)
       measure.frequency(:template => :precision, :search_words => words)
     end

@@ -12,6 +12,7 @@ module StringUtilityBelt
       CODER.decode(self)
     end
 
+    warn "StringUtilityBelt::Entities.decode_entities_and_cleaner will be deprecated in the next_version"
     def decode_entities_and_cleaner
       decode_entities.tag_cleaner
     end
