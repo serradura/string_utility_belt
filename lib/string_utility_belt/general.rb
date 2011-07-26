@@ -54,10 +54,13 @@ module StringUtilityBelt
       self.scan(WORD_PATTERN)
     end
 
+
+    warn "StringUtilityBelt:General.simple_space will be deprecated in the next_version"
     def simple_space
       self.gsub(ANY_SPACE_PATTERN, SIMPLE_SPACE)
     end
 
+    warn "StringUtilityBelt:General.simple_space! will be deprecated in the next_version"
     def simple_space!
       self.gsub!(ANY_SPACE_PATTERN, SIMPLE_SPACE)
     end
