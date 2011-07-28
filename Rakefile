@@ -27,7 +27,7 @@ end
 
 namespace :test do
   Rake::TestTask.new do |t|
-    t.test_files = FileList['test/**/*.rb']
+    t.test_files = FileList['test/test_suite.rb']
     t.name = 'all'
   end
 end

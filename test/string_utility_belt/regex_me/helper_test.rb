@@ -1,6 +1,8 @@
 # coding: utf-8
 
 require File.join(File.dirname(__FILE__), '..', '..', 'test_helper')
+require File.join('string_utility_belt', 'commons')
+require File.join('string_utility_belt', 'regex_me')
 
 class RegexMeHelperTest < Test::Unit::TestCase
 

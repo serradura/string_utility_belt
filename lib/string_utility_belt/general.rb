@@ -45,26 +45,6 @@ module StringUtilityBelt
       end
     end
 
-    WORD_PATTERN      = /\w[\w\'\-]*/
-    ANY_SPACE_PATTERN = /\s+/
-
-    SIMPLE_SPACE = " "
-
-    def words
-      self.scan(WORD_PATTERN)
-    end
-
-
-    warn "StringUtilityBelt:General.simple_space will be deprecated in the next_version"
-    def simple_space
-      self.gsub(ANY_SPACE_PATTERN, SIMPLE_SPACE)
-    end
-
-    warn "StringUtilityBelt:General.simple_space! will be deprecated in the next_version"
-    def simple_space!
-      self.gsub!(ANY_SPACE_PATTERN, SIMPLE_SPACE)
-    end
-
     warn "StringUtilityBelt::General.have_this_words? will be deprecated in the next_version"
     def have_this_words?(words_to_match, options = nil)
       i = GENERAL.new(self)

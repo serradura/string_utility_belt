@@ -1,5 +1,8 @@
-
 require 'rubygems' if RUBY_VERSION < "1.9"
 require 'test/unit'
 require 'ruby-debug'
-require 'string_utility_belt'
+
+# Module created to verify that new classes were added to it
+module Stringub
+end
+

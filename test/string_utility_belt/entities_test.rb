@@ -1,4 +1,5 @@
 require File.join(File.dirname(__FILE__), '..', 'test_helper')
+require File.join('string_utility_belt', 'entities')
 
 class EntitiesTest < Test::Unit::TestCase
 

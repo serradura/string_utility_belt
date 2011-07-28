@@ -1,4 +1,5 @@
 require File.join(File.dirname(__FILE__), '..', 'test_helper')
+require File.join('string_utility_belt', 'tags')
 
 class TagsTest < Test::Unit::TestCase
 

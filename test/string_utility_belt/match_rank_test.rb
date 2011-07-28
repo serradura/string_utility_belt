@@ -1,4 +1,7 @@
 require File.join(File.dirname(__FILE__), '..', 'test_helper')
+require File.join('string_utility_belt', 'commons')
+require File.join('string_utility_belt', 'regex_me')
+require File.join('string_utility_belt', 'match_rank')
 
 class MatchRankTest < Test::Unit::TestCase
 

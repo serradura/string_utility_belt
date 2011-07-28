@@ -89,7 +89,7 @@ module RegexMe
 
       if @options[:exact_phrase]
         regexp = \
-           set_latin_variations(@string.strip.simple_space) \
+           set_latin_variations(@string.strip.unique_spaces) \
           .gsub(/\s/, WORDS_INTERVAL_PATTERN_FOR_EXACT_PHRASES)
 
         @regexp = \
